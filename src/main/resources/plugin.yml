@@ -1,4 +1,15 @@
 name: PlayerHome
+description: 'optimized for this server sethome'
+author: 'namakemono-san'
 version: '1.0.0'
 main: moe.nmkmn.player_home.PlayerHome
 api-version: '1.20'
+permissions:
+  player_home.commands.sethome:
+    description: 'Command permissions to sethome'
+    default: not op
+commands:
+  sethome:
+    description: 'sethome'
+    usage: /sethome <id>
+    permission: player_home.commands.sethome
