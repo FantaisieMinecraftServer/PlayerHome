@@ -1,0 +1,4 @@
+name: PlayerHome
+version: '1.0.0'
+main: moe.nmkmn.player_home.PlayerHome
+api-version: '1.20'
