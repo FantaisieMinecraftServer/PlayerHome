@@ -6,8 +6,8 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class SethomeCommand implements CommandExecutor {
     public final PlayerHome plugin;
@@ -17,12 +17,13 @@ public class SethomeCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(Component.text("このコマンドはプレイヤーのみ実行できます。").color(NamedTextColor.RED));
             return true;
         }
 
-        return false;
+        player.sendMessage(plugin.prefix.append(Component.text("まだ作ってないよ")));
+        return true;
     }
 }
