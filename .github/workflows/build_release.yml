@@ -10,7 +10,11 @@ permissions:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.version_out.outputs.version }}
 
     steps:
       - name: Checkout repository
@@ -31,10 +35,20 @@ jobs:
         run: chmod +x gradlew
 
       - name: Get version from build.gradle
-        id: get_version
+        id: version_out
         run: |
           VERSION=$(./gradlew -q printVersion)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Compare version with latest git tag
+        run: |
+          OLD_VER=$(git tag --list 'v*' --sort=-v:refname | head -n 1 | sed -e "s/v//")
+          NEW_VER=$(echo ${{ steps.version_out.outputs.version }} | sed -e "s/v//")
+
+          if [ 1 -eq "$(echo "${OLD_VER} >= ${NEW_VER}" | bc)" ]; then
+            echo "バージョン番号が旧バージョン以下です。OLD_VER=${OLD_VER}, NEW_VER=${NEW_VER}"
+            exit 1
+          fi
 
       - name: Build with Gradle
         run: gradle build
@@ -44,6 +58,11 @@ jobs:
           mkdir -p release
           cp build/libs/*.jar release/PlayerHome.jar
           ls -la release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plugin-jar
+          path: release/PlayerHome.jar
 
   release:
     needs: build
@@ -56,8 +75,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ env.VERSION }}
-          release_name: "PlayerHome v${{ env.VERSION }}"
-          files: release/PlayerHome.jar
+          tag: ${{ needs.build.outputs.version }}
+          artifacts: "PlayerHome.jar"
+          releaseName: "PlayerHome ${{ needs.build.outputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
