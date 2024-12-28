@@ -75,8 +75,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag: ${{ needs.build.outputs.version }}
-          artifacts: "PlayerHome.jar"
-          releaseName: "PlayerHome ${{ needs.build.outputs.version }}"
+          tag_name: v${{ needs.build.outputs.version }}
+          files: "PlayerHome.jar"
+          release_name: "PlayerHome v${{ needs.build.outputs.version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
