@@ -58,7 +58,7 @@ public class SethomeListener implements Listener {
         }
     }
 
-    private void showConfirmationInventory(Player player, String homeNumber, String currentCoordinate) {
+    private void showConfirmationInventory(Player player, String homeNumber) {
         Inventory confirmationInventory = Bukkit.createInventory(null, 9, Component.text("ホーム地点の置き換え"));
 
         ItemStack yesItem = new ItemStack(Material.LIME_CONCRETE);
