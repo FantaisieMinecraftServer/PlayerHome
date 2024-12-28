@@ -24,7 +24,7 @@ public final class PlayerHome extends JavaPlugin {
             if (!getDataFolder().mkdirs()) {
                 System.out.println("Failed to create directory: " + getDataFolder());
             }
-        };
+        }
 
         // データベースに接続
         try {

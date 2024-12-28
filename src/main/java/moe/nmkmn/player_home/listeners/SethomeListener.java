@@ -30,7 +30,7 @@ public class SethomeListener implements Listener {
         if (!player.getWorld().getName().equals("railway")) {
             player.sendMessage(plugin.prefix.append(Component.text("この機能は Railway のみ実行可能です。")));
             return;
-        };
+        }
 
         event.setCancelled(true);
         int slot = event.getRawSlot();
