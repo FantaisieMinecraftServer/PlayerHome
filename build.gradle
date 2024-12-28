@@ -47,3 +47,9 @@ processResources {
         expand props
     }
 }
+
+tasks.register('printVersion') {
+    doLast {
+        println version
+    }
+}
