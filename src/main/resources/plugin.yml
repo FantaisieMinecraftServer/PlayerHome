@@ -5,11 +5,18 @@ version: '1.0.0'
 main: moe.nmkmn.player_home.PlayerHome
 api-version: '1.20'
 permissions:
+  player_home.commands.home:
+    description: 'Command permissions to home'
+    default: true
   player_home.commands.sethome:
     description: 'Command permissions to sethome'
-    default: not op
+    default: true
 commands:
+  home:
+    description: 'home'
+    usage: /sethome <id>
+    permission: player_home.commands.home
   sethome:
     description: 'sethome'
-    usage: /sethome <id>
+    usage: /sethome
     permission: player_home.commands.sethome
