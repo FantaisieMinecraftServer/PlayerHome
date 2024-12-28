@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
-import java.util.Objects;
 
 public final class PlayerHome extends JavaPlugin {
     public MiniMessage miniMessage = MiniMessage.miniMessage();
