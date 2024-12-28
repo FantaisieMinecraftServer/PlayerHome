@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 public final class PlayerHome extends JavaPlugin {
     public MiniMessage miniMessage = MiniMessage.miniMessage();
@@ -19,7 +20,11 @@ public final class PlayerHome extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (!getDataFolder().exists()) getDataFolder().mkdirs();
+        if (!getDataFolder().exists()) {
+            if (!getDataFolder().mkdirs()) {
+                System.out.println("Failed to create directory: " + getDataFolder());
+            }
+        };
 
         // データベースに接続
         try {
@@ -30,8 +35,8 @@ public final class PlayerHome extends JavaPlugin {
             return;
         }
 
-        getCommand("home").setExecutor(new HomeCommand(this));
-        getCommand("sethome").setExecutor(new SethomeCommand(this));
+        Objects.requireNonNull(getCommand("home")).setExecutor(new HomeCommand(this));
+        Objects.requireNonNull(getCommand("sethome")).setExecutor(new SethomeCommand(this));
         Bukkit.getPluginManager().registerEvents(new SethomeListener(this), this);
     }
 
