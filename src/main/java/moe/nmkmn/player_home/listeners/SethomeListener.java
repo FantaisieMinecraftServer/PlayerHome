@@ -50,7 +50,7 @@ public class SethomeListener implements Listener {
                 plugin.databaseManager.setCoordinate(player, homeNumber);
                 player.sendMessage(plugin.prefix.append(Component.text("ホーム " + homeNumber + " を設定しました。").color(NamedTextColor.GREEN)));
             } else {
-                showConfirmationInventory(player, homeNumber, coordinate);
+                showConfirmationInventory(player, homeNumber);
             }
         } catch (SQLException e) {
             plugin.getLogger().severe("Failed to access database: " + e.getMessage());
