@@ -24,6 +24,9 @@ jobs:
         with:
           gradle-version: '8.8'
 
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
       - name: Get version from build.gradle
         id: get_version
         run: |
