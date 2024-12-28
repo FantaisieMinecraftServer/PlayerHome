@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,6 +43,8 @@ jobs:
         run: |
           mkdir -p release
           cp build/libs/*.jar release/PlayerHome.jar
+          echo "=== Release directory contents ==="
+          ls -la release
 
   release:
     needs: build
@@ -47,12 +52,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
           files: release/PlayerHome.jar
+          release_name: "PlayerHome v${{ env.VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
